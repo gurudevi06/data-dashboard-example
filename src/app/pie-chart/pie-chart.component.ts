@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import movieUserPreference from "../../movieUserPreference";
+import imageLikes from "../../imageLikes";
 
 @Component({
   selector: "app-pie-chart",
@@ -7,27 +7,59 @@ import movieUserPreference from "../../movieUserPreference";
   styleUrls: ["./pie-chart.component.css"]
 })
 export class PieChartComponent implements OnInit {
-  chartType = "pie";
-  chartData = [];
-  chartLabels = [];
+  chartTypeNumOfLikesPerTag = "pie";
+  chartDataNumOfLikesPerTag = [];
+  chartLabelsNumOfLikesPerTag = [];
+
+  chartTypeNumOfImagesPerTag = "pie";
+  chartDataNumOfImagesPerTag = [];
+  chartLabelsNumOfImagesPerTag = [];
+
   constructor() {}
 
   ngOnInit() {
-    let dataset = [];
-    let movieLikeCount = {};
+    //Number Of Likes Per Tag
+    let datasetNumOfLikesPerTag = [];
+    let numOfLikesPerTag = {};
 
-    for (let preference of movieUserPreference) {
-      if (!movieLikeCount[preference.movie]) {
-        movieLikeCount[preference.movie] = 0;
+    for (let likeCount of imageGallery) {
+      for (let tag of likeCount.tags) {
+        if (!numOfLikesPerTag[tag]) {
+          numOfLikesPerTag[tag] = 0;
+        }
+        numOfLikesPerTag[tag] += likeCount.likes;
       }
-      movieLikeCount[preference.movie] += 1;
     }
-    this.chartLabels = Object.keys(movieLikeCount);
-    for (let movie of Object.keys(movieLikeCount)) {
-      dataset.push(movieLikeCount[movie]);
+
+    this.chartLabelsNumOfLikesPerTag = Object.keys(numOfLikesPerTag);
+    for (let tags of Object.keys(numOfLikesPerTag)) {
+      datasetNumOfLikesPerTag.push(numOfLikesPerTag[tags]);
     }
-    this.chartData.push({
-      data: dataset
+
+    this.chartDataNumOfLikesPerTag.push({
+      data: datasetNumOfLikesPerTag
+    });
+
+    //Number Of Images Per Tag
+    let datasetNumOfImagesPerTag = [];
+    let numOfImagesPerTag = {};
+
+    for (let likeCount of imageGallery) {
+      for (let tag of likeCount.tags) {
+        if (!numOfImagesPerTag[tag]) {
+          numOfImagesPerTag[tag] = 0;
+        }
+        numOfImagesPerTag[tag] += 1;
+      }
+    }
+
+    this.chartLabelsNumOfImagesPerTag = Object.keys(numOfImagesPerTag);
+    for (let tags of Object.keys(numOfImagesPerTag)) {
+      datasetNumOfImagesPerTag.push(numOfImagesPerTag[tags]);
+    }
+
+    this.chartDataNumOfImagesPerTag.push({
+      data: datasetNumOfImagesPerTag
     });
   }
 }

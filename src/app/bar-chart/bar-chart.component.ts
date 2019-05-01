@@ -10,27 +10,10 @@ export class BarChartComponent implements OnInit {
   chartType = "bar";
   chartData = [];
   chartLabels = [];
-
   constructor() {}
 
   ngOnInit() {
-    // multiYearLaptopSales : Transaction []
-
-    //   [{
-    //     "transactionDate": "Sun Feb 25 2018 19:41:51 GMT+0800 (Malaysia Time)",
-    //     "monthSold": 1,
-    //     "yearSold": 2018,
-    //     "model": "latitude",
-    //     "cost": 2500,
-    //     "salesPrice": 6000
-    // },]
-
     let monthlyProfits = {};
-    // {
-    //   month: {
-    //     model: profit
-    //   }
-    // }
     for (let transaction of multiYearLaptopSales) {
       if (!monthlyProfits[transaction.monthSold]) {
         monthlyProfits[transaction.monthSold] = {};

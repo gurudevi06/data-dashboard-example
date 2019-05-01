@@ -9,7 +9,7 @@ import { BarChartComponent } from "./bar-chart/bar-chart.component";
 
 @NgModule({
   declarations: [AppComponent, PieChartComponent, BarChartComponent],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [BrowserModule, AppRoutingModule, ChartsModule],
   providers: [],
   bootstrap: [AppComponent]
 })
